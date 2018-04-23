@@ -7,16 +7,17 @@ entries = []
 next_id = 0
 
 def init():
-    global entries, next_id
+    global entries
+    global next_id
     try:
 
         f = open(GUESTBOOK_ENTRIES_FILE)
         entries = json.loads(f.read())
         f.close()
 
-        for each_dict in entries:
-            if each_dict['id'] > next_id:
-                next_id = each_dict['id']+1
+        # for each_dict in entries:
+        #     if each_dict['id'] > next_id:
+        #         next_id = each_dict['id']+1
     except:
         # print('Couldn\'t open', GUESTBOOK_ENTRIES_FILE)
         entries = []
@@ -42,11 +43,13 @@ def add_entry(name, text):
     except:
         print("ERROR! Could not write entries to file.")
 
-def delete_entry(_id):
+def delete_entry(next_id):
     global entries, GUESTBOOK_ENTRIES_FILE
     for element in entries:
-        if element["id"] == str(_id):
+        if element["id"] == int(next_id):
             entries.remove(element)
+        else:
+            pass
     # do a for loop to look for the element to delete and then delete it
     # use .remove()
 
@@ -58,3 +61,5 @@ def delete_entry(_id):
         f.close()
     except:
         print("ERROR! Could not write entries to file.")
+
+delete_entry(next_id)

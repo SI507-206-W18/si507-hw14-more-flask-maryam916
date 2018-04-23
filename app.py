@@ -30,6 +30,7 @@ def delete():
     model.delete_entry(_id)
     return redirect("/admin")
 
+
 if __name__=="__main__":
     model.init()
     app.run(debug=True)
